@@ -1,6 +1,5 @@
-# LibreBridge — Free your personal data
-
 🇫🇷 Lire ce document en français : [README.fr.md](README.fr.md)
+# LibreBridge — Free your personal data
 
 LibreBridge is a free, local-first, and modular migration tool that helps users reclaim their personal data by exporting it from proprietary services (Google, Apple, Meta, WhatsApp…) to open alternatives like Nextcloud, DAVx⁵, Signal, or WebDAV.
 
