@@ -1,0 +1,5 @@
+{
+  "client_id": "XXX.apps.googleusercontent.com",
+  "client_secret": "XXXX",
+  "redirect_uris": ["http://localhost"]
+}
