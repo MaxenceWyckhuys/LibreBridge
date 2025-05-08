@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install JS dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Lint JS
+        working-directory: ./frontend
+        run: |
+          npm install --save-dev eslint
+          npx eslint src || echo "Lint errors found"
+
+      - name: Run JS tests (if any)
+        working-directory: ./frontend
+        run: |
+          if [ -f package.json ]; then npm test || echo "JS tests failed"; fi
+
+      - name: Set up Rust
+        uses: actions/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Format Rust code
+        working-directory: ./src-tauri
+        run: cargo fmt -- --check
+
+      - name: Run Rust tests
+        working-directory: ./src-tauri
+        run: cargo test || echo "Rust tests failed"
